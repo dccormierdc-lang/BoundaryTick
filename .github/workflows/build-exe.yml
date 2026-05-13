@@ -1,0 +1,50 @@
+name: Build EXE
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    if: github.actor != 'github-actions[bot]'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Generate icon
+        shell: powershell
+        run: powershell -ExecutionPolicy Bypass -File .\tools\create-icon.ps1
+
+      - name: Build executable
+        shell: cmd
+        run: build.cmd
+
+      - name: Update README checksum
+        shell: powershell
+        run: |
+          $size = (Get-Item .\BoundaryTick.exe).Length
+          $hash = (Get-FileHash .\BoundaryTick.exe -Algorithm SHA256).Hash
+          $readme = Get-Content .\README.md -Raw
+          $readme = [regex]::Replace($readme, 'File size: `[\d,]+ bytes`', ('File size: `' + $size.ToString('N0') + ' bytes`'))
+          $readme = [regex]::Replace($readme, 'SHA256: `[A-Fa-f0-9]+`', ('SHA256: `' + $hash + '`'))
+          Set-Content .\README.md -Value $readme -NoNewline -Encoding UTF8
+
+      - name: Commit build artifacts
+        shell: powershell
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add BoundaryTick.exe BoundaryTick.ico BoundaryTick-icon.png README.md
+          if (git diff --cached --quiet) {
+            Write-Host "No build artifact changes."
+          } else {
+            git commit -m "Build icon executable"
+            git push
+          }
