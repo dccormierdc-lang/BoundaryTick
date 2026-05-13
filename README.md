@@ -4,7 +4,7 @@ BoundaryTick은 윈도우에서 여러 모니터를 쓸 때, 마우스가 모니
 
 ## 다운로드
 
-[BoundaryTick.exe 다운로드](https://github.com/dccormierdc-lang/BoundaryTick/raw/refs/heads/main/BoundaryTick.exe)
+[BoundaryTick.exe 다운로드](https://raw.githubusercontent.com/dccormierdc-lang/BoundaryTick/main/BoundaryTick.exe)
 
 - File size: `41,472 bytes`
 - SHA256: `80BE348C02048A5B93E17982C61634F7A14E454B48BA78EF42AEBFEFC4B7E61A`
