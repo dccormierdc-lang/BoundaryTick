@@ -3,6 +3,11 @@ name: Build EXE
 on:
   push:
     branches: [main]
+    paths:
+      - BoundaryTick.cs
+      - build.cmd
+      - tools/create-icon.ps1
+      - .github/workflows/build-exe.yml
   workflow_dispatch:
 
 permissions:
@@ -31,10 +36,11 @@ jobs:
         run: |
           $size = (Get-Item .\BoundaryTick.exe).Length
           $hash = (Get-FileHash .\BoundaryTick.exe -Algorithm SHA256).Hash
-          $readme = Get-Content .\README.md -Raw
+          $readmePath = (Resolve-Path .\README.md).Path
+          $readme = [System.IO.File]::ReadAllText($readmePath, [System.Text.Encoding]::UTF8)
           $readme = [regex]::Replace($readme, 'File size: `[\d,]+ bytes`', ('File size: `' + $size.ToString('N0') + ' bytes`'))
           $readme = [regex]::Replace($readme, 'SHA256: `[A-Fa-f0-9]+`', ('SHA256: `' + $hash + '`'))
-          Set-Content .\README.md -Value $readme -NoNewline -Encoding UTF8
+          [System.IO.File]::WriteAllText($readmePath, $readme, [System.Text.Encoding]::UTF8)
 
       - name: Commit build artifacts
         shell: powershell
