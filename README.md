@@ -5,9 +5,18 @@ mouse crosses between adjacent monitors.
 
 ## Usage
 
-1. Run `build.cmd` to compile `BoundaryTick.exe`.
-2. Run `run.cmd` to start the tray app.
+1. Download `BoundaryTick.exe`.
+2. Double-click `BoundaryTick.exe`.
 3. Right-click the `BoundaryTick` tray icon to enable/disable it or change the resistance strength.
+
+Direct download:
+
+https://github.com/dccormierdc-lang/BoundaryTick/raw/refs/heads/main/BoundaryTick.exe
+
+## Build From Source
+
+If you want to build it yourself, run `build.cmd`. This creates `BoundaryTick.exe`.
+You can also run `run.cmd`, which builds the app if needed and starts it.
 
 ## How It Works
 
