@@ -13,7 +13,9 @@ if not exist "%CSC%" (
   /nologo ^
   /target:winexe ^
   /platform:anycpu ^
+  /codepage:65001 ^
   /optimize+ ^
+  /win32icon:"%~dp0BoundaryTick.ico" ^
   /out:"%~dp0BoundaryTick.exe" ^
   /reference:System.dll ^
   /reference:System.Drawing.dll ^
