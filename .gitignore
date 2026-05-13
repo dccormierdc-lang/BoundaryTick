@@ -1,0 +1,5 @@
+BoundaryTick.ini
+*.user
+*.suo
+bin/
+obj/
