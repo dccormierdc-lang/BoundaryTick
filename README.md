@@ -6,11 +6,16 @@ BoundaryTick은 윈도우에서 여러 모니터를 쓸 때, 마우스가 모니
 
 [BoundaryTick.exe 다운로드](https://github.com/dccormierdc-lang/BoundaryTick/raw/refs/heads/main/BoundaryTick.exe)
 
+- File size: `14,848 bytes`
+- SHA256: `CABC55776F87B1725400A8153C52B80FCD9B5DF5463E156512C1359104D1F5B4`
+
 ## 사용 방법
 
 1. 위 링크에서 `BoundaryTick.exe`를 다운로드합니다.
 2. `BoundaryTick.exe`를 더블클릭해서 실행합니다.
 3. 작업 표시줄 알림 영역의 `BoundaryTick` 아이콘을 우클릭해서 켜기/끄기와 걸림 강도를 바꿉니다.
+
+이전에 다운로드한 파일에서 "현재 PC에서는 이 앱을 실행할 수 없습니다"가 나오면 파일이 깨진 이전 버전입니다. 기존 파일을 삭제하고 위 링크에서 다시 다운로드하세요.
 
 처음 실행할 때 Windows SmartScreen 경고가 뜰 수 있습니다. 개인 개발자가 만든 미서명 실행 파일이라서 생기는 경고입니다.
 
