@@ -36,7 +36,7 @@ namespace BoundaryTick
             _controller.Enabled = _settings.Enabled;
             _controller.Start();
 
-            _enabledItem = new ToolStripMenuItem("켜짐")
+            _enabledItem = new ToolStripMenuItem("\uCF1C\uC9D0")
             {
                 Checked = _settings.Enabled,
                 CheckOnClick = true
@@ -45,17 +45,17 @@ namespace BoundaryTick
             UpdateEnabledLabel();
 
             _delayItems = new List<ToolStripMenuItem>();
-            var delayMenu = new ToolStripMenuItem("걸림 강도");
-            AddDelayItem(delayMenu, "짧게 (80ms)", 80);
-            AddDelayItem(delayMenu, "기본 (140ms)", 140);
-            AddDelayItem(delayMenu, "길게 (220ms)", 220);
-            AddDelayItem(delayMenu, "강하게 (320ms)", 320);
+            var delayMenu = new ToolStripMenuItem("\uAC78\uB9BC \uAC15\uB3C4");
+            AddDelayItem(delayMenu, "\uC9E7\uAC8C (80ms)", 80);
+            AddDelayItem(delayMenu, "\uAE30\uBCF8 (140ms)", 140);
+            AddDelayItem(delayMenu, "\uAE38\uAC8C (220ms)", 220);
+            AddDelayItem(delayMenu, "\uAC15\uD558\uAC8C (320ms)", 320);
             UpdateDelayChecks();
 
-            var refreshItem = new ToolStripMenuItem("모니터 다시 읽기");
+            var refreshItem = new ToolStripMenuItem("\uBAA8\uB2C8\uD130 \uB2E4\uC2DC \uC77D\uAE30");
             refreshItem.Click += delegate { _controller.RefreshScreens(); };
 
-            var exitItem = new ToolStripMenuItem("종료");
+            var exitItem = new ToolStripMenuItem("\uC885\uB8CC");
             exitItem.Click += delegate { ExitThread(); };
 
             var menu = new ContextMenuStrip();
@@ -67,7 +67,7 @@ namespace BoundaryTick
 
             _notifyIcon = new NotifyIcon
             {
-                Icon = SystemIcons.Application,
+                Icon = LoadTrayIcon(),
                 Text = "BoundaryTick",
                 ContextMenuStrip = menu,
                 Visible = true
@@ -126,7 +126,24 @@ namespace BoundaryTick
 
         private void UpdateEnabledLabel()
         {
-            _enabledItem.Text = _enabledItem.Checked ? "켜짐" : "꺼짐";
+            _enabledItem.Text = _enabledItem.Checked ? "\uCF1C\uC9D0" : "\uAEBC\uC9D0";
+        }
+
+        private static Icon LoadTrayIcon()
+        {
+            try
+            {
+                var icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
+                if (icon != null)
+                {
+                    return icon;
+                }
+            }
+            catch
+            {
+            }
+
+            return SystemIcons.Application;
         }
     }
 
@@ -250,7 +267,7 @@ namespace BoundaryTick
             if (_hookId == IntPtr.Zero)
             {
                 var error = Marshal.GetLastWin32Error();
-                MessageBox.Show("마우스 훅을 설치하지 못했습니다. 오류 코드: " + error, "BoundaryTick", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Failed to install the mouse hook. Error code: " + error, "BoundaryTick", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
