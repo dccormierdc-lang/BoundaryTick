@@ -37,10 +37,11 @@ jobs:
           $size = (Get-Item .\BoundaryTick.exe).Length
           $hash = (Get-FileHash .\BoundaryTick.exe -Algorithm SHA256).Hash
           $readmePath = (Resolve-Path .\README.md).Path
+          $utf8NoBom = New-Object System.Text.UTF8Encoding($false)
           $readme = [System.IO.File]::ReadAllText($readmePath, [System.Text.Encoding]::UTF8)
           $readme = [regex]::Replace($readme, 'File size: `[\d,]+ bytes`', ('File size: `' + $size.ToString('N0') + ' bytes`'))
           $readme = [regex]::Replace($readme, 'SHA256: `[A-Fa-f0-9]+`', ('SHA256: `' + $hash + '`'))
-          [System.IO.File]::WriteAllText($readmePath, $readme, [System.Text.Encoding]::UTF8)
+          [System.IO.File]::WriteAllText($readmePath, $readme, $utf8NoBom)
 
       - name: Commit build artifacts
         shell: powershell
@@ -52,5 +53,6 @@ jobs:
             Write-Host "No build artifact changes."
           } else {
             git commit -m "Build icon executable"
+            git pull --rebase --autostash origin main
             git push
           }
